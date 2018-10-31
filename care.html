@@ -1,0 +1,102 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>customer care</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="bootsrap.css">
+ <link rel="stylesheet" href="care.css">
+<link rel="stylesheet" href="new.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+</head>
+<body>
+<!------------------------------------------>
+<div class="container">
+<div class="order">
+  <h2>Order status</h2>
+    </div> 
+
+<div ng-app="myApp" ng-controller="customersCtrl"> 
+
+<table>
+  <tr ng-repeat="x in names">
+    <td>{{ $index + 1 }}</td>
+    <td>{{ x.Name }}</td>
+    <td>{{ x.City }}</td>
+    <td>{{ x.Country }}</td>
+  </tr>
+</table>
+<script>
+var app = angular.module('myApp', []);
+app.controller('customersCtrl', function($scope, $http) {
+    $http.get("customers.json")
+    .then(function (response) {$scope.names = response.data.records;});
+});
+</script>
+</div>
+</div>
+</div>
+<!----------------------------------------------------->
+<center>
+<p id="demo"></p>
+
+<button onclick="getLocation()">Get Direction</button>
+
+<div id="mapholder"></div><br>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    var latlon =10.788197 + "," +78.6689224 ;
+    var img_url = "https://maps.googleapis.com/maps/api/staticmap?center="
+    +latlon+"&zoom=14&size=400x300&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
+    document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
+}
+
+
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+            break;
+        case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
+    }
+}
+</script>
+<!------------------------------------------->
+<div class="solution">
+<p><a href="#">problem with the current order</a></p><br>
+<p><a href="#">cancel the order</a></p><br>
+<p><a href="#">problem with the past order</a></p><br>
+<p><a href="help.html">Help?</a></p><br>
+<!------------------------------------------>
+<div class="container-fluid">
+  <div class="row" >
+    <div class="col-sm-5 col-md-6" ><a href="#">chat with us<i class="fa fa-comments-o" style="font-size:36px"></i></div>
+    <div "col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0"><i class="fa fa-phone" style="font-size:24px"></i>+91 6542584854</div>
+  </div>
+</div><br><br>
+<!------------------------------------------>
+<div class="center">
+<p><b>Note:</b>The order cancellation process should be confirmed by the restaurant only.<br>Then process will be done successfully</p><br>
+</body>
+</html>
